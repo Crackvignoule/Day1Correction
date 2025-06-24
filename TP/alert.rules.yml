@@ -10,3 +10,23 @@ groups:
           summary: "Node Exporter UP (instance={{ $labels.instance }})"
           description: "Le service node_exporter (instance {{ $labels.instance }}) ne répond depuis plus de 1 min."
 
+  - name: app_alerts
+    rules:
+      - alert: AppErrorRate
+        expr: (sum(rate(http_requests_total{status=~"5.."}[5m])) / sum(rate(http_requests_total[5m]))) * 100 > 5
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Taux d'erreur élevé pour l'application"
+          description: "Plus de 5% des requêtes HTTP renvoient un code d'erreur 5xx ({{ $value }}%)"
+
+      - alert: AppTooFewRequests
+        expr: sum(rate(http_requests_total[5m])) * 300 < 10
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Trop peu de requêtes vers l'application"
+          description: "Le nombre de requêtes est inférieur à 1 req/s ({{ $value }} req/5min)"
+
