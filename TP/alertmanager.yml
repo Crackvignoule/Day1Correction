@@ -2,7 +2,33 @@ global:
   resolve_timeout: 5m
 
 route:
-  receiver: "console"
+  group_by: ['alertname']
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 1h
+  receiver: 'console'
+  routes:
+    - match:
+        alertname: NodeExporterDown
+      receiver: 'dev-infra-team'
+    - match:
+        alertname: NodeExporterCritical
+      receiver: 'dev-infra-team'
 
 receivers:
   - name: "console"
+    
+  - name: "dev-infra-team"
+    webhook_configs:
+      - url: 'http://localhost:9999/dev-webhook'
+        send_resolved: true
+        http_config:
+          basic_auth:
+            username: 'dev-team'
+            password: 'dev-secret'
+      - url: 'http://localhost:9999/infra-webhook'
+        send_resolved: true
+        http_config:
+          basic_auth:
+            username: 'infra-team'
+            password: 'infra-secret'

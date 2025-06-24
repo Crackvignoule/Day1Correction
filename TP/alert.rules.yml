@@ -5,10 +5,30 @@ groups:
         expr: up{job="node"} == 1
         for: 1m
         labels:
-          severity: critical
+          severity: info
         annotations:
           summary: "Node Exporter UP (instance={{ $labels.instance }})"
-          description: "Le service node_exporter (instance {{ $labels.instance }}) ne répond depuis plus de 1 min."
+          description: "Le service node_exporter (instance {{ $labels.instance }}) est disponible."
+
+      - alert: NodeExporterDown
+        expr: up{job="node"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          team: dev
+        annotations:
+          summary: "Node Exporter DOWN (instance={{ $labels.instance }})"
+          description: "Le service node_exporter (instance {{ $labels.instance }}) ne répond pas depuis plus de 1 minute."
+
+      - alert: NodeExporterCritical
+        expr: up{job="node"} == 0
+        for: 5m
+        labels:
+          severity: critical
+          team: infra
+        annotations:
+          summary: "Node Exporter CRITICAL - Service indisponible"
+          description: "Le service node_exporter (instance {{ $labels.instance }}) est indisponible depuis plus de 5 minutes. Intervention urgente requise."
 
   - name: app_alerts
     rules:
