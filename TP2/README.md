@@ -4,7 +4,7 @@ Retrouver les pics de pollution	1. Discover → data-view logstash-*.
     - Faire une recherche un Nom && data value > 10 && sur une période entre 2008 et 2014
     - N'afficher que ces champs là dans la recherche du résultat + trier par data_value décroissante
 
-
+![](./images/peaks%202008-2014.png)
 
 ########## Pensez à enregistrer vos visualisations dans un dashboard, utilise pour la partie 5 #######
 
