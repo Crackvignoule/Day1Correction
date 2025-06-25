@@ -14,17 +14,18 @@ Retrouver les pics de pollution	1. Discover → data-view logstash-*.
     3. Y-axis : Average data_value.
     4. Break down by name (Ozone vs SO2).
     5. Type : Area chart.	Courbe multi-série, inspection des requêtes générées.
+![](./images/averages.png)
 
-    
 4    TSVB
     - Visualize → Create → Lens.
     - Group by : time_period.keyword (Y).
     - Group by : name.keyword (X).
     - Metric : Avg data_value.
     - Faire un screen d'une recherche sur une date puis faire un screen d'une recherche sur un name, le tout dans l'onglet "Metric"
+![](./images/search_by_name.png)
+![](./images/search_by_date.png)
 
-
-5	Dashboard interactif	
+5	Dashboard interactif
 
 
     *Si vous avez rajouté vos visu dans le dashboard --> 
@@ -36,3 +37,5 @@ Retrouver les pics de pollution	1. Discover → data-view logstash-*.
     - Rajoutez vos Visu
     - Ajoutez un contrôle Options list sur geo_place.keyword.
     - Filtrer le tableau de bord sur “Bronx” et voir toutes les visu réagir.
+
+![](./images/bronx.png)
